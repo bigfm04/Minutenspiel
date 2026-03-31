@@ -17,6 +17,14 @@ const statsBtn = document.getElementById("statsBtn");
 const backToStartBtn = document.getElementById("backToStartBtn");
 const toast = document.getElementById("toast");
 
+const splashScreen = document.getElementById("splashScreen");
+
+function hideSplashScreen() {
+  if (!splashScreen) return;
+  splashScreen.classList.add("hiddenSplash");
+}
+
+
 const playerModal = document.getElementById("playerModal");
 const playerNameInput = document.getElementById("playerNameInput");
 const savePlayerBtn = document.getElementById("savePlayerBtn");
@@ -647,3 +655,10 @@ if ("serviceWorker" in navigator) {
       .catch(error => console.error("Service Worker Fehler:", error));
   });
 }
+
+
+window.addEventListener("load", () => {
+  setTimeout(hideSplashScreen, 1300);
+});
+
+setTimeout(hideSplashScreen, 1800);

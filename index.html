@@ -9,6 +9,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <div id="splashScreen" class="splashScreen">
+    <div class="splashBackdrop"></div>
+    <div class="splashContent">
+      <div class="splashLogoWrap">
+        <img src="icon-512.png" alt="Minutenspiel Logo" class="splashLogo">
+      </div>
+      <div class="splashTitle">Minutenspiel</div>
+      <div class="splashSubtitle">by BKK</div>
+      <div class="splashLoader">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
   <div class="stadiumGlow stadiumGlowLeft"></div>
   <div class="stadiumGlow stadiumGlowRight"></div>
 
@@ -18,7 +33,7 @@
         <div class="heroBadge">Bundeskonsumskomission presents</div>
         <h1 class="appTitle">Minutenspiel</h1>
         <p class="heroSubtitle">
-          Für jedes Tor wird getrunken.
+          Bei jedem Tor wird getrunken. Empfohlen werden max. 6 Spieler, danach Teambildung
         </p>
       </section>
 
@@ -38,27 +53,27 @@
             <label class="settingTitle">Modus</label>
             <div class="radioGrid">
               <label class="modeCard">
-                <input type="radio" name="modus" value="Zufall Block">
+                <input type="radio" name="modus" value="Zufall Block" >
                 <span class="modeCardTitle">Zufall Block</span>
-                <span class="modeCardText">Zufällige Vergabe in N-Spieler großen Blöcken</span>
+                <span class="modeCardText">Zufällige Minutenvergabe in N-Spieler großen Blöcken</span>
               </label>
 
               <label class="modeCard">
                 <input type="radio" name="modus" value="Zufall45">
                 <span class="modeCardTitle">Zufall45</span>
-                <span class="modeCardText">Zufällige Vergabe pro Halbzeit</span>
+                <span class="modeCardText">Zufällige Minutenvergabe pro Halbzeit</span>
               </label>
 
               <label class="modeCard">
                 <input type="radio" name="modus" value="Zufall90">
                 <span class="modeCardTitle">Zufall90</span>
-                <span class="modeCardText">Zufällige Vergabe gesamt Minuten</span>
+                <span class="modeCardText">Zufällige Minutenvergabe gesamte Spielzeit</span>
               </label>
 
               <label class="modeCard">
                 <input type="radio" name="modus" value="Linear" checked>
                 <span class="modeCardTitle">Linear</span>
-                <span class="modeCardText">Zufällige Reihenfolge mit linearer Minutenvergabe</span>
+                <span class="modeCardText">Zufällige Reihenfolge mit anschließender linearer Vergabe</span>
               </label>
             </div>
           </div>
@@ -74,7 +89,7 @@
               <label for="maxPlayersSelect" class="settingTitle">Maximale Spieleranzahl</label>
               <select id="maxPlayersSelect">
                 <option value="6">6</option>
-                <option value="4">4</option>               
+                <option value="4">4</option>         
                 <option value="8">8</option>
               </select>
             </div>
@@ -85,7 +100,7 @@
                 <span class="toggleVisual"></span>
                 <span class="toggleText">
                   <strong>Tortypen unterscheiden</strong>
-                  <small>Elfmeter, Freistoß und Tore aus dem Spiel heraus getrennt erfassen (für Statistik)</small>
+                  <small>Elfmeter, Freistoß und Tor aus dem Spiel getrennt erfassen (Statistik)</small>
                 </span>
               </label>
             </div>
@@ -101,7 +116,7 @@
         <div class="sectionHeader sectionHeaderWrap">
           <div>
             <p class="eyebrow">Live‑Ansicht</p>
-            <h2>Minutenliste</h2>
+            <h2>Minutentabelle</h2>
           </div>
           <div class="gameHeaderActions">
             <button id="statsBtn" class="primaryBtn">Zur Statistik</button>
