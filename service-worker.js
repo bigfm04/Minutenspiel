@@ -1,10 +1,12 @@
-const CACHE_NAME = "minutenspiel-cache-v1";
+const CACHE_NAME = "minutenspiel-premium-cache-v1";
 const URLS_TO_CACHE = [
   "./",
   "./index.html",
   "./style.css",
   "./script.js",
-  "./manifest.webmanifest"
+  "./manifest.webmanifest",
+  "./icon-192.png",
+  "./icon-512.png"
 ];
 
 self.addEventListener("install", event => {

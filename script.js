@@ -15,6 +15,7 @@ const startScreen = document.getElementById("startScreen");
 const gameScreen = document.getElementById("gameScreen");
 const statsBtn = document.getElementById("statsBtn");
 const backToStartBtn = document.getElementById("backToStartBtn");
+const toast = document.getElementById("toast");
 
 const playerModal = document.getElementById("playerModal");
 const playerNameInput = document.getElementById("playerNameInput");
@@ -39,9 +40,8 @@ const closeStatsModal = document.getElementById("closeStatsModal");
 
 addPlayerBtn.addEventListener("click", () => {
   const maxSpieler = parseInt(maxPlayersSelect.value, 10);
-
   if (spielerListe.length >= maxSpieler) {
-    alert("Es dürfen nicht mehr Spieler angelegt werden als ausgewählt.");
+    showToast("Es dürfen nicht mehr Spieler angelegt werden als ausgewählt.");
     return;
   }
 
@@ -52,25 +52,22 @@ addPlayerBtn.addEventListener("click", () => {
 
 savePlayerBtn.addEventListener("click", () => {
   const maxSpieler = parseInt(maxPlayersSelect.value, 10);
-
   if (spielerListe.length >= maxSpieler) {
-    alert("Es dürfen nicht mehr Spieler angelegt werden als ausgewählt.");
+    showToast("Maximale Spieleranzahl erreicht.");
     return;
   }
 
   const saubererName = playerNameInput.value.trim();
-
   if (saubererName === "") {
-    alert("Der Name darf nicht leer sein.");
+    showToast("Der Name darf nicht leer sein.");
     return;
   }
 
   const nameExistiertSchon = spielerListe.some(
     spieler => spieler.name.toLowerCase() === saubererName.toLowerCase()
   );
-
   if (nameExistiertSchon) {
-    alert("Die Spielernamen müssen unterschiedlich sein.");
+    showToast("Die Spielernamen müssen unterschiedlich sein.");
     return;
   }
 
@@ -81,9 +78,10 @@ savePlayerBtn.addEventListener("click", () => {
   });
 
   renderSpielerListe();
+  updateModeCardStates();
   speichereAppStatus();
-
   playerModal.classList.add("hidden");
+  showToast("Spieler hinzugefügt.");
 });
 
 closePlayerModal.addEventListener("click", () => {
@@ -104,6 +102,7 @@ nachspielzeitInput.addEventListener("input", () => {
 document.querySelectorAll('input[name="modus"]').forEach(radio => {
   radio.addEventListener("change", () => {
     aktuellerSpielmodus = radio.value;
+    updateModeCardStates();
     speichereAppStatus();
   });
 });
@@ -119,13 +118,13 @@ maxPlayersSelect.addEventListener("change", () => {
 
 startGameBtn.addEventListener("click", () => {
   if (spielerListe.length === 0) {
-    alert("Bitte mindestens einen Spieler anlegen.");
+    showToast("Bitte mindestens einen Spieler anlegen.");
     return;
   }
 
   const maxSpieler = parseInt(maxPlayersSelect.value, 10);
   if (spielerListe.length > maxSpieler) {
-    alert("Es wurden mehr Spieler angelegt als erlaubt.");
+    showToast("Es wurden mehr Spieler angelegt als erlaubt.");
     return;
   }
 
@@ -146,9 +145,9 @@ startGameBtn.addEventListener("click", () => {
 
   startScreen.classList.add("hidden");
   gameScreen.classList.remove("hidden");
-
   renderGameGrid();
   speichereAppStatus();
+  showToast("Spiel gestartet.");
 });
 
 backToStartBtn.addEventListener("click", () => {
@@ -222,7 +221,6 @@ goalTypeButtons.forEach(button => {
     if (!offeneTorMinute) return;
 
     const typ = button.dataset.type;
-
     torSpeichern(
       offeneTorMinute.spielerName,
       offeneTorMinute.minute,
@@ -247,34 +245,57 @@ function renderSpielerListe() {
     const div = document.createElement("div");
     div.className = "playerItem";
 
-    const nameSpan = document.createElement("span");
+    const info = document.createElement("div");
+    info.className = "playerIdentity";
+
+    const avatar = document.createElement("div");
+    avatar.className = "playerAvatar";
+    avatar.textContent = spieler.name.slice(0, 1).toUpperCase();
+
+    const textWrap = document.createElement("div");
+
+    const nameSpan = document.createElement("div");
     nameSpan.className = "playerName";
     nameSpan.textContent = spieler.name;
+
+    const meta = document.createElement("div");
+    meta.className = "playerMeta";
+    meta.textContent = "Bereit für die Auslosung";
+
+    textWrap.appendChild(nameSpan);
+    textWrap.appendChild(meta);
+    info.appendChild(avatar);
+    info.appendChild(textWrap);
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "deletePlayerBtn";
     deleteBtn.textContent = "Löschen";
-
     deleteBtn.addEventListener("click", () => {
       spielerListe.splice(index, 1);
       renderSpielerListe();
       speichereAppStatus();
+      showToast("Spieler entfernt.");
     });
 
-    div.appendChild(nameSpan);
+    div.appendChild(info);
     div.appendChild(deleteBtn);
     playerListDiv.appendChild(div);
   });
 }
 
+function updateModeCardStates() {
+  document.querySelectorAll(".modeCard").forEach(card => {
+    const input = card.querySelector("input");
+    card.classList.toggle("mode-active", !!input?.checked);
+  });
+}
+
 function mischeArray(array) {
   const kopie = [...array];
-
   for (let i = kopie.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [kopie[i], kopie[j]] = [kopie[j], kopie[i]];
   }
-
   return kopie;
 }
 
@@ -297,15 +318,12 @@ function erzeugeAlleMinuten(nachspielzeit) {
   for (let i = 1; i <= 45; i++) {
     ersteHalbzeit.push(String(i));
   }
-
   for (let i = 1; i <= nachspielzeit; i++) {
     ersteHalbzeit.push(`45+${i}`);
   }
-
   for (let i = 46; i <= 90; i++) {
     zweiteHalbzeit.push(String(i));
   }
-
   for (let i = 1; i <= nachspielzeit; i++) {
     zweiteHalbzeit.push(`90+${i}`);
   }
@@ -320,7 +338,6 @@ function erzeugeAlleMinuten(nachspielzeit) {
 function generiereLinear(spielerListe, nachspielzeit) {
   const { alleMinuten } = erzeugeAlleMinuten(nachspielzeit);
   const zufallsReihenfolge = mischeArray(spielerListe);
-
   const verteilung = {};
   zufallsReihenfolge.forEach(spieler => {
     verteilung[spieler.name] = [];
@@ -338,7 +355,6 @@ function generiereLinear(spielerListe, nachspielzeit) {
 function generiereZufall90(spielerListe, nachspielzeit) {
   const { alleMinuten } = erzeugeAlleMinuten(nachspielzeit);
   const gemischteMinuten = mischeArray(alleMinuten);
-
   const verteilung = {};
   spielerListe.forEach(spieler => {
     verteilung[spieler.name] = [];
@@ -355,10 +371,8 @@ function generiereZufall90(spielerListe, nachspielzeit) {
 
 function generiereZufall45(spielerListe, nachspielzeit) {
   const { ersteHalbzeit, zweiteHalbzeit } = erzeugeAlleMinuten(nachspielzeit);
-
   const gemischteErsteHalbzeit = mischeArray(ersteHalbzeit);
   const gemischteZweiteHalbzeit = mischeArray(zweiteHalbzeit);
-
   const verteilung = {};
   spielerListe.forEach(spieler => {
     verteilung[spieler.name] = [];
@@ -381,7 +395,6 @@ function generiereZufall45(spielerListe, nachspielzeit) {
 function generiereZufallBlock(spielerListe, nachspielzeit) {
   const { alleMinuten } = erzeugeAlleMinuten(nachspielzeit);
   const anzahlSpieler = spielerListe.length;
-
   const verteilung = {};
   spielerListe.forEach(spieler => {
     verteilung[spieler.name] = [];
@@ -454,12 +467,7 @@ function renderGameGrid() {
 }
 
 function minuteAngeklickt(spielerName, minute, minuteElement) {
-  offeneMinutenAktion = {
-    spielerName,
-    minute,
-    minuteElement
-  };
-
+  offeneMinutenAktion = { spielerName, minute, minuteElement };
   minuteActionInfo.textContent = `${spielerName} – Minute ${minute}`;
   minuteActionModal.classList.remove("hidden");
 }
@@ -468,10 +476,7 @@ function torSpeichern(spielerName, minute, typ, minuteElement) {
   const spieler = spielerListe.find(s => s.name === spielerName);
   if (!spieler) return;
 
-  spieler.tore.push({
-    minute: minute,
-    typ: typ
-  });
+  spieler.tore.push({ minute, typ });
 
   let aktuelleAnzahl = parseInt(minuteElement.dataset.tore, 10);
   aktuelleAnzahl++;
@@ -479,6 +484,7 @@ function torSpeichern(spielerName, minute, typ, minuteElement) {
 
   aktualisiereMinutenFarbe(minuteElement, aktuelleAnzahl);
   speichereAppStatus();
+  showToast("Tor gespeichert.");
 }
 
 function letztesTorEntfernen(spielerName, minute, minuteElement) {
@@ -486,9 +492,8 @@ function letztesTorEntfernen(spielerName, minute, minuteElement) {
   if (!spieler) return;
 
   const index = [...spieler.tore].reverse().findIndex(tor => tor.minute === minute);
-
   if (index === -1) {
-    alert("In dieser Minute ist noch kein Tor gespeichert.");
+    showToast("In dieser Minute ist noch kein Tor gespeichert.");
     return;
   }
 
@@ -501,6 +506,7 @@ function letztesTorEntfernen(spielerName, minute, minuteElement) {
 
   aktualisiereMinutenFarbe(minuteElement, aktuelleAnzahl);
   speichereAppStatus();
+  showToast("Tor entfernt.");
 }
 
 function aktualisiereMinutenFarbe(element, tore) {
@@ -541,7 +547,6 @@ function berechneStatistik(spielerName) {
 
 function renderStatsPlayerSelect() {
   statsPlayerSelect.innerHTML = "";
-
   spielerListe.forEach(spieler => {
     const option = document.createElement("option");
     option.value = spieler.name;
@@ -558,12 +563,26 @@ function renderStatistik(spielerName) {
   }
 
   statsOutput.innerHTML = `
-    <strong>${spielerName}</strong><br>
-    Anzahl Tore: ${statistik.toreGesamt}<br>
-    Anteil an Gesamttoren: ${statistik.anteil}%<br>
-    Anzahl Tore Elfmeter: ${statistik.elfmeter}<br>
-    Anzahl Tore Freistoß: ${statistik.freistoss}<br>
-    Anzahl Tore Normal: ${statistik.normal}
+    <div class="statCard">
+      <div class="statLabel">Anzahl Tore</div>
+      <div class="statValue">${statistik.toreGesamt}</div>
+    </div>
+    <div class="statCard">
+      <div class="statLabel">Anteil an Gesamttoren</div>
+      <div class="statValue">${statistik.anteil}%</div>
+    </div>
+    <div class="statCard">
+      <div class="statLabel">Elfmeter</div>
+      <div class="statValue">${statistik.elfmeter}</div>
+    </div>
+    <div class="statCard">
+      <div class="statLabel">Freistoß</div>
+      <div class="statValue">${statistik.freistoss}</div>
+    </div>
+    <div class="statCard">
+      <div class="statLabel">Normal</div>
+      <div class="statValue">${statistik.normal}</div>
+    </div>
   `;
 }
 
@@ -576,7 +595,6 @@ function speichereAppStatus() {
     maxSpieler: maxPlayersSelect.value,
     istSpielAnsichtOffen: !gameScreen.classList.contains("hidden")
   };
-
   localStorage.setItem("minutenspielApp", JSON.stringify(daten));
 }
 
@@ -586,25 +604,21 @@ function ladeAppStatus() {
 
   try {
     const daten = JSON.parse(rohdaten);
-
     spielerListe = Array.isArray(daten.spielerListe) ? daten.spielerListe : [];
     aktuellerSpielmodus = daten.aktuellerSpielmodus || "Zufall Block";
-    aktuelleNachspielzeit = Number.isInteger(daten.aktuelleNachspielzeit)
-      ? daten.aktuelleNachspielzeit
-      : 0;
+    aktuelleNachspielzeit = Number.isInteger(daten.aktuelleNachspielzeit) ? daten.aktuelleNachspielzeit : 0;
     tortypenUnterscheiden = !!daten.tortypenUnterscheiden;
 
     maxPlayersSelect.value = daten.maxSpieler || "4";
     nachspielzeitInput.value = aktuelleNachspielzeit ? String(aktuelleNachspielzeit) : "";
 
     const radio = document.querySelector(`input[name="modus"][value="${aktuellerSpielmodus}"]`);
-    if (radio) {
-      radio.checked = true;
-    }
+    if (radio) radio.checked = true;
 
     document.getElementById("tortypenCheckbox").checked = tortypenUnterscheiden;
 
     renderSpielerListe();
+    updateModeCardStates();
 
     if (daten.istSpielAnsichtOffen) {
       startScreen.classList.add("hidden");
@@ -616,7 +630,16 @@ function ladeAppStatus() {
   }
 }
 
+let toastTimeout = null;
+function showToast(text) {
+  toast.textContent = text;
+  toast.classList.remove("hidden");
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => toast.classList.add("hidden"), 2200);
+}
+
 ladeAppStatus();
+updateModeCardStates();
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
