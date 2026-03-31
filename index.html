@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minutenspiel</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#2d6cdf">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="startScreen" class="screen">
+    <h1 class="appTitle">Minutenspiel</h1>
+
+    <button id="addPlayerBtn">Spieler hinzufügen</button>
+    <div id="playerList"></div>
+
+    <h3>Modus</h3>
+    <div class="radioGroup">
+      <label><input type="radio" name="modus" value="Zufall Block" checked> Zufall Block</label>
+      <label><input type="radio" name="modus" value="Zufall45"> Zufall45</label>
+      <label><input type="radio" name="modus" value="Zufall90"> Zufall90</label>
+      <label><input type="radio" name="modus" value="Linear"> Linear</label>
+    </div>
+
+    <h3>Nachspielzeit berücksichtigen:</h3>
+    <input type="text" id="nachspielzeitInput" maxlength="2" inputmode="numeric" placeholder="0">
+
+    <h3>Maximale Spieleranzahl:</h3>
+    <select id="maxPlayersSelect">
+      <option value="4">4</option>
+      <option value="6">6</option>
+      <option value="8">8</option>
+    </select>
+
+    <div class="checkboxRow">
+      <label><input type="checkbox" id="tortypenCheckbox"> Tortypen unterscheiden</label>
+    </div>
+
+    <button id="startGameBtn">Spiel starten</button>
+  </div>
+
+  <div id="gameScreen" class="screen hidden">
+    <div class="gameTopBar">
+      <h2>Spielübersicht</h2>
+      <button id="backToStartBtn" class="secondaryBtn">Zurück</button>
+    </div>
+
+    <div id="gameGrid"></div>
+
+    <div class="bottomBar">
+      <button id="statsBtn">Statistik</button>
+    </div>
+  </div>
+
+  <div id="playerModal" class="modal hidden">
+    <div class="modalContent">
+      <h3>Spieler hinzufügen</h3>
+
+      <label for="playerNameInput">Name:</label>
+      <input type="text" id="playerNameInput" maxlength="30" placeholder="Spielername">
+
+      <div class="modalButtons">
+        <button id="savePlayerBtn">Speichern</button>
+        <button id="closePlayerModal" class="secondaryBtn">Abbrechen</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="minuteActionModal" class="modal hidden">
+    <div class="modalContent">
+      <h3>Aktion wählen</h3>
+      <p id="minuteActionInfo"></p>
+
+      <div class="modalButtons vertical">
+        <button id="addGoalToMinuteBtn">Tor hinzufügen</button>
+        <button id="removeGoalFromMinuteBtn" class="secondaryBtn">Letztes Tor entfernen</button>
+        <button id="closeMinuteActionModal" class="secondaryBtn">Abbrechen</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="goalTypeModal" class="modal hidden">
+    <div class="modalContent">
+      <h3>Torart auswählen</h3>
+      <p id="goalTypeInfo"></p>
+      <div class="modalButtons vertical">
+        <button class="goalTypeBtn" data-type="Elfmeter">Elfmeter</button>
+        <button class="goalTypeBtn" data-type="Freistoß">Freistoß</button>
+        <button class="goalTypeBtn" data-type="Normal">Normal</button>
+      </div>
+      <button id="closeGoalTypeModal" class="secondaryBtn">Abbrechen</button>
+    </div>
+  </div>
+
+  <div id="statsModal" class="modal hidden">
+    <div class="modalContent">
+      <h3>Statistik</h3>
+
+      <label for="statsPlayerSelect">Spieler auswählen:</label>
+      <select id="statsPlayerSelect"></select>
+
+      <div id="statsOutput" class="statsBox"></div>
+
+      <button id="closeStatsModal" class="secondaryBtn">Schließen</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
