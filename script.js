@@ -125,7 +125,7 @@ document.getElementById("tortypenCheckbox").addEventListener("change", (event) =
 });
 
 startGameBtn.addEventListener("click", () => {
-  if (spielerListe.length === 0) {
+  if (spielerListe.length <1) {
     showToast("Bitte mindestens einen Spieler anlegen.");
     return;
   }
@@ -304,6 +304,7 @@ function renderSpielerListe() {
     div.appendChild(deleteBtn);
     playerListDiv.appendChild(div);
   });
+  startGameBtn.disabled = spielerListe.length < 2;
 }
 
 function updateModeCardStates() {

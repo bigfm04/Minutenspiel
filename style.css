@@ -885,3 +885,10 @@ button:active {
   line-height: 1.5;
   outline: none;
 }
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.4);
+  transform: none !important;
+}
