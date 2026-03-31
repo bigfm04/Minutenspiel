@@ -15,10 +15,10 @@
   <div id="appShell">
     <div id="startScreen" class="screen">
       <section class="heroCard">
-        <div class="heroBadge">Premium Edition</div>
+        <div class="heroBadge">Bundeskonsumskomission presents</div>
         <h1 class="appTitle">Minutenspiel</h1>
         <p class="heroSubtitle">
-          Moderne Tor- und Minutenverwaltung für euer Spiel – mobil, schnell und direkt als Web‑App nutzbar.
+          Für jedes Tor wird getrunken.
         </p>
       </section>
 
@@ -38,27 +38,27 @@
             <label class="settingTitle">Modus</label>
             <div class="radioGrid">
               <label class="modeCard">
-                <input type="radio" name="modus" value="Zufall Block" checked>
+                <input type="radio" name="modus" value="Zufall Block">
                 <span class="modeCardTitle">Zufall Block</span>
-                <span class="modeCardText">Blockweise zufällige Vergabe</span>
+                <span class="modeCardText">Zufällige Vergabe in N-Spieler großen Blöcken</span>
               </label>
 
               <label class="modeCard">
                 <input type="radio" name="modus" value="Zufall45">
                 <span class="modeCardTitle">Zufall45</span>
-                <span class="modeCardText">Halbzeiten getrennt zufällig</span>
+                <span class="modeCardText">Zufällige Vergabe pro Halbzeit</span>
               </label>
 
               <label class="modeCard">
                 <input type="radio" name="modus" value="Zufall90">
                 <span class="modeCardTitle">Zufall90</span>
-                <span class="modeCardText">Gesamtes Spiel zufällig</span>
+                <span class="modeCardText">Zufällige Vergabe gesamt Minuten</span>
               </label>
 
               <label class="modeCard">
-                <input type="radio" name="modus" value="Linear">
+                <input type="radio" name="modus" value="Linear" checked>
                 <span class="modeCardTitle">Linear</span>
-                <span class="modeCardText">Reihum nach Auslosung</span>
+                <span class="modeCardText">Zufällige Reihenfolge mit linearer Minutenvergabe</span>
               </label>
             </div>
           </div>
@@ -66,15 +66,15 @@
           <div class="sideSettings">
             <div class="settingPanel">
               <label for="nachspielzeitInput" class="settingTitle">Nachspielzeit berücksichtigen</label>
-              <input type="text" id="nachspielzeitInput" maxlength="2" inputmode="numeric" placeholder="0">
+              <input type="text" id="nachspielzeitInput" maxlength="2" inputmode="numeric" placeholder="5">
               <div class="inputHint">Wird in Halbzeit 1 und 2 mit 45+X und 90+X ergänzt.</div>
             </div>
 
             <div class="settingPanel">
               <label for="maxPlayersSelect" class="settingTitle">Maximale Spieleranzahl</label>
               <select id="maxPlayersSelect">
-                <option value="4">4</option>
                 <option value="6">6</option>
+                <option value="4">4</option>               
                 <option value="8">8</option>
               </select>
             </div>
@@ -85,7 +85,7 @@
                 <span class="toggleVisual"></span>
                 <span class="toggleText">
                   <strong>Tortypen unterscheiden</strong>
-                  <small>Elfmeter, Freistoß und Normal getrennt erfassen</small>
+                  <small>Elfmeter, Freistoß und Tore aus dem Spiel heraus getrennt erfassen (für Statistik)</small>
                 </span>
               </label>
             </div>
@@ -101,11 +101,11 @@
         <div class="sectionHeader sectionHeaderWrap">
           <div>
             <p class="eyebrow">Live‑Ansicht</p>
-            <h2>Spielübersicht</h2>
+            <h2>Minutenliste</h2>
           </div>
           <div class="gameHeaderActions">
-            <button id="statsBtn" class="primaryBtn">Statistik</button>
-            <button id="backToStartBtn" class="secondaryBtn">Zurück</button>
+            <button id="statsBtn" class="primaryBtn">Zur Statistik</button>
+            <button id="backToStartBtn" class="secondaryBtn">Zurück(Neues Spiel)</button>
           </div>
         </div>
       </section>
