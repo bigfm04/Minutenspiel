@@ -132,7 +132,7 @@
           </div>
           <div class="gameHeaderActions">
             <button id="statsBtn" class="primaryBtn">Zur Statistik</button>
-            <button id="backToStartBtn" class="secondaryBtn">Zurück(Neues Spiel)</button>
+            <button id="backToStartBtn" class="secondaryBtn">Spiel beenden</button>
           </div>
         </div>
       </section>
@@ -198,6 +198,24 @@
       <button id="closeStatsModal" class="secondaryBtn">Schließen</button>
     </div>
   </div>
+
+  
+  <div id="exportModal" class="modal hidden">
+    <div class="modalContent premiumModal exportModalContent">
+      <p class="eyebrow">Spielende</p>
+      <h3>Export</h3>
+      <p class="modalInfo">Hier ist die Zusammenfassung des Spiels. Ideal zum Screenshotten.</p>
+
+      <div id="exportOutput" class="exportList"></div>
+
+      <div class="modalButtons vertical">
+        <button id="copyExportBtn" class="primaryBtn">Exporttext kopieren</button>
+        <button id="confirmEndGameBtn" class="dangerBtn">Spiel beenden</button>
+        <button id="closeExportModal" class="ghostBtn">Abbrechen</button>
+      </div>
+    </div>
+  </div>
+
 
   <div id="toast" class="toast hidden"></div>
 

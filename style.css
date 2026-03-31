@@ -832,3 +832,56 @@ button:active {
   text-align: center;
   transition: 0.2s;
 }
+
+
+.exportModalContent {
+  width: min(100%, 680px);
+}
+
+.exportList {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0;
+  max-height: 52vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.exportCard {
+  border-radius: 18px;
+  padding: 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.exportPlayerName {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.exportLine {
+  color: #dbeafe;
+  font-size: 14px;
+  line-height: 1.55;
+  word-break: break-word;
+}
+
+.exportLine strong {
+  color: white;
+}
+
+.exportTextBox {
+  margin-top: 16px;
+  width: 100%;
+  min-height: 140px;
+  resize: vertical;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(7, 15, 28, 0.72);
+  color: var(--text);
+  border-radius: 16px;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  outline: none;
+}

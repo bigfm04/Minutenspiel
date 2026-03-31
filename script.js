@@ -1,5 +1,5 @@
 let spielerListe = [];
-let aktuellerSpielmodus = "Zufall Block";
+let aktuellerSpielmodus = "Linear";
 let aktuelleNachspielzeit = 0;
 let tortypenUnterscheiden = false;
 let offeneTorMinute = null;
@@ -45,6 +45,12 @@ const statsModal = document.getElementById("statsModal");
 const statsPlayerSelect = document.getElementById("statsPlayerSelect");
 const statsOutput = document.getElementById("statsOutput");
 const closeStatsModal = document.getElementById("closeStatsModal");
+
+const exportModal = document.getElementById("exportModal");
+const exportOutput = document.getElementById("exportOutput");
+const copyExportBtn = document.getElementById("copyExportBtn");
+const confirmEndGameBtn = document.getElementById("confirmEndGameBtn");
+const closeExportModal = document.getElementById("closeExportModal");
 
 addPlayerBtn.addEventListener("click", () => {
   if (spielerListe.length >= 45) {
@@ -147,9 +153,8 @@ startGameBtn.addEventListener("click", () => {
 });
 
 backToStartBtn.addEventListener("click", () => {
-  gameScreen.classList.add("hidden");
-  startScreen.classList.remove("hidden");
-  speichereAppStatus();
+  renderExport();
+  exportModal.classList.remove("hidden");
 });
 
 statsBtn.addEventListener("click", () => {
@@ -169,6 +174,28 @@ statsPlayerSelect.addEventListener("change", () => {
 
 closeStatsModal.addEventListener("click", () => {
   statsModal.classList.add("hidden");
+});
+
+copyExportBtn.addEventListener("click", async () => {
+  const text = generiereExportText();
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast("Exporttext kopiert.");
+  } catch (error) {
+    showToast("Kopieren nicht möglich. Bitte Text manuell markieren.");
+  }
+});
+
+confirmEndGameBtn.addEventListener("click", () => {
+  exportModal.classList.add("hidden");
+  gameScreen.classList.add("hidden");
+  startScreen.classList.remove("hidden");
+  speichereAppStatus();
+  showToast("Spiel beendet.");
+});
+
+closeExportModal.addEventListener("click", () => {
+  exportModal.classList.add("hidden");
 });
 
 addGoalToMinuteBtn.addEventListener("click", () => {
@@ -610,6 +637,49 @@ function renderStatistik(spielerName) {
   `;
 }
 
+
+function generiereExportDaten() {
+  return spielerListe.map(spieler => {
+    const minuten = spieler.tore.map(tor => tor.minute);
+    return {
+      name: spieler.name,
+      tore: spieler.tore.length,
+      minutenText: minuten.length ? minuten.join(", ") : "-"
+    };
+  });
+}
+
+function generiereExportText() {
+  const daten = generiereExportDaten();
+  return daten
+    .map(eintrag => `${eintrag.name} | Tore: ${eintrag.tore} | Minuten: ${eintrag.minutenText}`)
+    .join("\n");
+}
+
+function renderExport() {
+  const daten = generiereExportDaten();
+
+  if (daten.length === 0) {
+    exportOutput.innerHTML = "<div class=\"exportCard\"><div class=\"exportLine\">Keine Daten vorhanden.</div></div>";
+    return;
+  }
+
+  const cards = daten.map(eintrag => `
+    <div class="exportCard">
+      <div class="exportPlayerName">${eintrag.name}</div>
+      <div class="exportLine"><strong>Anzahl Tore:</strong> ${eintrag.tore}</div>
+      <div class="exportLine"><strong>Minuten:</strong> ${eintrag.minutenText}</div>
+    </div>
+  `).join("");
+
+  const text = generiereExportText()
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  exportOutput.innerHTML = cards + `<textarea class="exportTextBox" readonly>${text}</textarea>`;
+}
+
 function speichereAppStatus() {
   const daten = {
     spielerListe,
@@ -628,7 +698,7 @@ function ladeAppStatus() {
   try {
     const daten = JSON.parse(rohdaten);
     spielerListe = Array.isArray(daten.spielerListe) ? daten.spielerListe : [];
-    aktuellerSpielmodus = daten.aktuellerSpielmodus || "Zufall Block";
+    aktuellerSpielmodus = daten.aktuellerSpielmodus || "Linear";
     aktuelleNachspielzeit = Number.isInteger(daten.aktuelleNachspielzeit) ? daten.aktuelleNachspielzeit : 5;
     tortypenUnterscheiden = !!daten.tortypenUnterscheiden;
 
