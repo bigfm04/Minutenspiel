@@ -7,8 +7,8 @@ let offeneMinutenAktion = null;
 
 const addPlayerBtn = document.getElementById("addPlayerBtn");
 const playerListDiv = document.getElementById("playerList");
-const maxPlayersSelect = document.getElementById("maxPlayersSelect");
 const nachspielzeitInput = document.getElementById("nachspielzeitInput");
+const nachspielzeitValue = document.getElementById("nachspielzeitValue");
 const startGameBtn = document.getElementById("startGameBtn");
 const gameGrid = document.getElementById("gameGrid");
 const startScreen = document.getElementById("startScreen");
@@ -47,9 +47,8 @@ const statsOutput = document.getElementById("statsOutput");
 const closeStatsModal = document.getElementById("closeStatsModal");
 
 addPlayerBtn.addEventListener("click", () => {
-  const maxSpieler = parseInt(maxPlayersSelect.value, 10);
-  if (spielerListe.length >= maxSpieler) {
-    showToast("Es dürfen nicht mehr Spieler angelegt werden als ausgewählt.");
+  if (spielerListe.length >= 45) {
+    showToast("Maximal 45 Spieler sind möglich.");
     return;
   }
 
@@ -59,9 +58,8 @@ addPlayerBtn.addEventListener("click", () => {
 });
 
 savePlayerBtn.addEventListener("click", () => {
-  const maxSpieler = parseInt(maxPlayersSelect.value, 10);
-  if (spielerListe.length >= maxSpieler) {
-    showToast("Maximale Spieleranzahl erreicht.");
+  if (spielerListe.length >= 45) {
+    showToast("Maximal 45 Spieler sind möglich.");
     return;
   }
 
@@ -103,7 +101,7 @@ playerNameInput.addEventListener("keydown", (event) => {
 });
 
 nachspielzeitInput.addEventListener("input", () => {
-  nachspielzeitInput.value = nachspielzeitInput.value.replace(/\D/g, "");
+  updateNachspielzeitSlider();
   speichereAppStatus();
 });
 
@@ -120,24 +118,14 @@ document.getElementById("tortypenCheckbox").addEventListener("change", (event) =
   speichereAppStatus();
 });
 
-maxPlayersSelect.addEventListener("change", () => {
-  speichereAppStatus();
-});
-
 startGameBtn.addEventListener("click", () => {
   if (spielerListe.length === 0) {
     showToast("Bitte mindestens einen Spieler anlegen.");
     return;
   }
 
-  const maxSpieler = parseInt(maxPlayersSelect.value, 10);
-  if (spielerListe.length > maxSpieler) {
-    showToast("Es wurden mehr Spieler angelegt als erlaubt.");
-    return;
-  }
-
   aktuellerSpielmodus = document.querySelector('input[name="modus"]:checked').value;
-  aktuelleNachspielzeit = parseInt(nachspielzeitInput.value || "0", 10);
+  aktuelleNachspielzeit = parseInt(nachspielzeitInput.value || "5", 10);
   tortypenUnterscheiden = document.getElementById("tortypenCheckbox").checked;
 
   const verteilung = generiereMinutenverteilung(
@@ -295,6 +283,34 @@ function updateModeCardStates() {
   document.querySelectorAll(".modeCard").forEach(card => {
     const input = card.querySelector("input");
     card.classList.toggle("mode-active", !!input?.checked);
+  });
+}
+
+function updateNachspielzeitSlider() {
+  const value = parseInt(nachspielzeitInput.value, 10) || 0;
+  nachspielzeitValue.textContent = `+${value} Min`;
+
+  const percent = (value / 10) * 100;
+  nachspielzeitInput.style.background = `
+    linear-gradient(
+      90deg,
+      #22c55e 0%,
+      #2563eb ${percent}%,
+      rgba(255,255,255,0.14) ${percent}%,
+      rgba(255,255,255,0.14) 100%
+    )
+  `;
+
+  document.querySelectorAll(".sliderScale span").forEach((el, index) => {
+    if (index === value) {
+      el.style.color = "#ffffff";
+      el.style.fontWeight = "700";
+      el.style.transform = "scale(1.2)";
+    } else {
+      el.style.color = "rgba(255,255,255,0.4)";
+      el.style.fontWeight = "400";
+      el.style.transform = "scale(1)";
+    }
   });
 }
 
@@ -600,7 +616,6 @@ function speichereAppStatus() {
     aktuellerSpielmodus,
     aktuelleNachspielzeit,
     tortypenUnterscheiden,
-    maxSpieler: maxPlayersSelect.value,
     istSpielAnsichtOffen: !gameScreen.classList.contains("hidden")
   };
   localStorage.setItem("minutenspielApp", JSON.stringify(daten));
@@ -614,11 +629,10 @@ function ladeAppStatus() {
     const daten = JSON.parse(rohdaten);
     spielerListe = Array.isArray(daten.spielerListe) ? daten.spielerListe : [];
     aktuellerSpielmodus = daten.aktuellerSpielmodus || "Zufall Block";
-    aktuelleNachspielzeit = Number.isInteger(daten.aktuelleNachspielzeit) ? daten.aktuelleNachspielzeit : 0;
+    aktuelleNachspielzeit = Number.isInteger(daten.aktuelleNachspielzeit) ? daten.aktuelleNachspielzeit : 5;
     tortypenUnterscheiden = !!daten.tortypenUnterscheiden;
 
-    maxPlayersSelect.value = daten.maxSpieler || "4";
-    nachspielzeitInput.value = aktuelleNachspielzeit ? String(aktuelleNachspielzeit) : "";
+    nachspielzeitInput.value = String(aktuelleNachspielzeit || 5);
 
     const radio = document.querySelector(`input[name="modus"][value="${aktuellerSpielmodus}"]`);
     if (radio) radio.checked = true;
@@ -648,6 +662,11 @@ function showToast(text) {
 
 ladeAppStatus();
 updateModeCardStates();
+
+if (!nachspielzeitInput.value) {
+  nachspielzeitInput.value = "5";
+}
+updateNachspielzeitSlider();
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {

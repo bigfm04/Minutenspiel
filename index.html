@@ -80,18 +80,30 @@
 
           <div class="sideSettings">
             <div class="settingPanel">
-              <label for="nachspielzeitInput" class="settingTitle">Nachspielzeit berücksichtigen</label>
-              <input type="text" id="nachspielzeitInput" maxlength="2" inputmode="numeric" placeholder="5">
-              <div class="inputHint">Wird in Halbzeit 1 und 2 mit 45+X und 90+X ergänzt.</div>
-            </div>
+              <label class="settingTitle">Nachspielzeit berücksichtigen</label>
 
-            <div class="settingPanel">
-              <label for="maxPlayersSelect" class="settingTitle">Maximale Spieleranzahl</label>
-              <select id="maxPlayersSelect">
-                <option value="6">6</option>
-                <option value="4">4</option>         
-                <option value="8">8</option>
-              </select>
+              <div class="sliderBlock">
+                <div class="sliderTopRow">
+                  <span class="sliderLabel">Zusätzliche Minuten</span>
+                  <span id="nachspielzeitValue" class="sliderValue">+5 Min</span>
+                </div>
+
+                <input
+                  type="range"
+                  id="nachspielzeitInput"
+                  min="0"
+                  max="10"
+                  value="5"
+                  class="premiumSlider"
+                >
+
+                <div class="sliderScale">
+                  <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>
+                  <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                </div>
+              </div>
+
+              <div class="inputHint">Wird in Halbzeit 1 und 2 mit 45+X und 90+X ergänzt.</div>
             </div>
 
             <div class="settingPanel checkboxPanel">

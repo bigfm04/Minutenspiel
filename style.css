@@ -728,3 +728,107 @@ button:active {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+
+.sliderBlock {
+  margin-top: 4px;
+}
+
+.sliderTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.sliderLabel {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.sliderValue {
+  min-width: 78px;
+  text-align: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  box-shadow: inset 0 1px 8px rgba(255,255,255,0.05);
+}
+
+.premiumSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  outline: none;
+  background: linear-gradient(
+    90deg,
+    #22c55e 0%,
+    #2563eb 50%,
+    rgba(255,255,255,0.14) 50%,
+    rgba(255,255,255,0.14) 100%
+  );
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.28);
+  transition: background 0.15s ease;
+}
+
+.premiumSlider::-webkit-slider-runnable-track {
+  height: 12px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.premiumSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  margin-top: -7px;
+  border: 2px solid rgba(255,255,255,0.85);
+  background: linear-gradient(135deg, #60a5fa, #22c55e);
+  box-shadow:
+    0 6px 16px rgba(0,0,0,0.28),
+    0 0 0 6px rgba(96,165,250,0.12);
+  cursor: pointer;
+}
+
+.premiumSlider::-moz-range-track {
+  height: 12px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.premiumSlider::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border: 2px solid rgba(255,255,255,0.85);
+  border-radius: 50%;
+  background: linear-gradient(135deg, #60a5fa, #22c55e);
+  box-shadow:
+    0 6px 16px rgba(0,0,0,0.28),
+    0 0 0 6px rgba(96,165,250,0.12);
+  cursor: pointer;
+}
+
+.sliderScale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  padding: 0 2px;
+}
+
+.sliderScale span {
+  font-size: 10px;
+  color: rgba(255,255,255,0.4);
+  width: 10px;
+  text-align: center;
+  transition: 0.2s;
+}
