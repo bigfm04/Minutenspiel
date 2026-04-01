@@ -3,19 +3,31 @@
 }
 
 :root {
-  --bg-dark: #08111f;
-  --bg-darker: #050b14;
-  --glass: rgba(255, 255, 255, 0.08);
-  --glass-strong: rgba(255, 255, 255, 0.12);
-  --line: rgba(255, 255, 255, 0.12);
-  --text: #f8fafc;
-  --muted: #a9b8cf;
-  --primary: #22c55e;
-  --primary-strong: #16a34a;
-  --secondary: #2563eb;
-  --danger: #dc2626;
-  --warning: #f59e0b;
-  --shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+  --bg-dark: #08110f;
+  --bg-darker: #050908;
+
+  --glass: rgba(255, 255, 255, 0.06);
+  --glass-strong: rgba(255, 255, 255, 0.1);
+  --line: rgba(255, 255, 255, 0.1);
+
+  --text: #f5f2e8;
+  --muted: #c9c2a8;
+
+  /* 🔴 Hauptfarben aus Logo */
+  --primary: #c62828;
+  /* Rot */
+  --primary-strong: #8e1c1c;
+
+  /* 🟡 Gold */
+  --secondary: #d4af37;
+
+  /* 🟢 Olive */
+  --accent: #9da44f;
+
+  --danger: #c62828;
+  --warning: #d4af37;
+
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
 }
 
 html,
@@ -28,11 +40,10 @@ body {
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at top left, rgba(34, 197, 94, 0.22), transparent 26%),
-    radial-gradient(circle at top right, rgba(37, 99, 235, 0.24), transparent 28%),
+    radial-gradient(circle at top left, rgba(157, 164, 79, 0.25), transparent 30%),
+    radial-gradient(circle at top right, rgba(198, 40, 40, 0.25), transparent 30%),
     linear-gradient(180deg, rgba(6, 18, 34, 0.82), rgba(4, 10, 18, 0.96)),
-    url("https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1800&q=80")
-      center/cover fixed no-repeat;
+    url("https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1800&q=80") center/cover fixed no-repeat;
 }
 
 .stadiumGlow {
@@ -311,11 +322,11 @@ select:focus {
   transition: transform 0.2s ease;
 }
 
-.toggleRow input:checked + .toggleVisual {
+.toggleRow input:checked+.toggleVisual {
   background: linear-gradient(135deg, #22c55e, #16a34a);
 }
 
-.toggleRow input:checked + .toggleVisual::after {
+.toggleRow input:checked+.toggleVisual::after {
   transform: translateX(22px);
 }
 
@@ -361,15 +372,15 @@ button:disabled {
 
 .primaryBtn,
 .startBtn {
-  color: white;
-  background: linear-gradient(135deg, var(--secondary), var(--primary));
-  box-shadow: 0 14px 28px rgba(34, 197, 94, 0.18);
+  background: linear-gradient(135deg, #d4af37, #c62828);
+  color: #fff8e1;
+  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.25);
 }
 
 .secondaryBtn {
-  color: white;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: #f5f2e8;
 }
 
 .dangerBtn {
@@ -443,6 +454,7 @@ button:disabled {
   gap: 10px;
   flex-wrap: wrap;
 }
+
 /*
 .gameHeaderCard {
   position: static;
@@ -520,10 +532,10 @@ button:disabled {
   transition:
     transform 0.18s ease,
     box-shadow 0.18s ease;
-  border: 2px solid rgba(255,255,255,0.08);
+  border: 2px solid rgba(255, 255, 255, 0.08);
   box-shadow:
-    inset 0 2px 12px rgba(255,255,255,0.08),
-    0 8px 18px rgba(0,0,0,0.22);
+    inset 0 2px 12px rgba(255, 255, 255, 0.08),
+    0 8px 18px rgba(0, 0, 0, 0.22);
 }
 
 .minuteCircle:hover {
@@ -539,8 +551,9 @@ button:disabled {
 .minuteCircle.tore-2,
 .minuteCircle.tore-3,
 .minuteCircle.tore-4plus {
-  background: linear-gradient(180deg, #fde047, #facc15);
-  color: #111827;
+  background: linear-gradient(180deg, #f6e6b4, #d4af37);
+  color: #2b2b2b;
+  border: 2px solid rgba(212, 175, 55, 0.6);
 }
 
 .minuteBadge {
@@ -551,15 +564,17 @@ button:disabled {
   height: 22px;
   padding: 0 6px;
   border-radius: 999px;
-  background: #dc2626;
+
+  background: linear-gradient(180deg, #e53935, #b71c1c);
   color: white;
+
   font-size: 11px;
   font-weight: 800;
   line-height: 22px;
   text-align: center;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.28);
-  border: 2px solid rgba(8, 17, 31, 0.9);
-  pointer-events: none;
+
+  border: 2px solid #f5f2e8;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
 }
 
 .modal {
@@ -578,9 +593,9 @@ button:disabled {
 }
 
 .premiumModal {
-  background: linear-gradient(180deg, rgba(12, 22, 39, 0.98), rgba(6, 14, 26, 0.98));
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: var(--shadow);
+  background: linear-gradient(180deg, rgba(18,18,18,0.98), rgba(8,8,8,0.98));
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
   border-radius: 24px;
   padding: 20px;
 }
@@ -605,27 +620,44 @@ button:disabled {
 .statsGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin: 18px 0;
+  gap: 14px;
 }
 
 .statCard {
-  border-radius: 18px;
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 18px;
+  background: linear-gradient(180deg, rgba(20,20,20,0.9), rgba(10,10,10,0.95));
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.statCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #d4af37, #c62828);
 }
 
 .statLabel {
-  color: var(--muted);
+  color: #c9c2a8;
   font-size: 12px;
   margin-bottom: 8px;
+  letter-spacing: 0.04em;
 }
 
 .statValue {
-  font-size: 1.4rem;
-  font-weight: 800;
+  font-size: 1.6rem;
+  font-weight: 900;
   letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #f6e6b4, #d4af37);
+  background-clip: text; 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .toast {
@@ -653,8 +685,7 @@ button:disabled {
     radial-gradient(circle at top left, rgba(34, 197, 94, 0.18), transparent 26%),
     radial-gradient(circle at top right, rgba(37, 99, 235, 0.22), transparent 28%),
     linear-gradient(180deg, rgba(6, 18, 34, 0.88), rgba(4, 10, 18, 0.98)),
-    url("https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1800&q=80")
-      center/cover no-repeat;
+    url("https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1800&q=80") center/cover no-repeat;
   transition:
     opacity 0.45s ease,
     visibility 0.45s ease;
@@ -780,13 +811,11 @@ button:disabled {
   height: 12px;
   border-radius: 999px;
   outline: none;
-  background: linear-gradient(
-    90deg,
-    #22c55e 0%,
-    #2563eb 50%,
-    rgba(255, 255, 255, 0.14) 50%,
-    rgba(255, 255, 255, 0.14) 100%
-  );
+  background: linear-gradient(90deg,
+      #22c55e 0%,
+      #2563eb 50%,
+      rgba(255, 255, 255, 0.14) 50%,
+      rgba(255, 255, 255, 0.14) 100%);
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.28);
   transition: background 0.15s ease;
 }
@@ -898,12 +927,14 @@ button:disabled {
 }
 
 @keyframes splashBounce {
+
   0%,
   80%,
   100% {
     transform: translateY(0);
     opacity: 0.55;
   }
+
   40% {
     transform: translateY(-8px);
     opacity: 1;
@@ -911,11 +942,13 @@ button:disabled {
 }
 
 @keyframes splashPulse {
+
   0%,
   100% {
     transform: scale(1);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
   }
+
   50% {
     transform: scale(1.03);
     box-shadow: 0 26px 74px rgba(0, 0, 0, 0.38);
@@ -927,6 +960,7 @@ button:disabled {
     opacity: 0;
     transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1010,9 +1044,10 @@ button:disabled {
   letter-spacing: -0.01em;
   padding: 14px 12px;
   border-radius: 20px;
-  background: linear-gradient(180deg, rgba(12, 22, 39, 0.98), rgba(8, 17, 31, 0.94));
-  border: 1px solid rgba(255,255,255,0.10);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.24);
+  background: linear-gradient(180deg, #1a1a1a, #0c0c0c);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  color: #f5f2e8;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.24);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
@@ -1030,8 +1065,8 @@ button:disabled {
 }
 
 .playerColumn {
-  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
-  border: 1px solid rgba(255,255,255,0.10);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.10);
   box-shadow: var(--shadow);
   border-radius: 24px;
   padding: 16px 12px;
@@ -1043,6 +1078,7 @@ button:disabled {
 }
 
 @media (max-width: 720px) {
+
   #playerHeaderRow,
   #gameGrid {
     grid-auto-columns: minmax(136px, 1fr);
