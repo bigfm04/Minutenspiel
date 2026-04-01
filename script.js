@@ -502,11 +502,10 @@ function renderGameGrid() {
 
   const sortierteSpieler = sortiereSpielerFuerAnzeige(spielerListe);
   renderPlayerHeaderRow(sortierteSpieler);
-  gameGrid.innerHTML = "";
+
   sortierteSpieler.forEach(spieler => {
     const column = document.createElement("div");
     column.className = "playerColumn";
-
 
     spieler.minuten.forEach(minute => {
       const minuteDiv = document.createElement("div");
@@ -519,7 +518,7 @@ function renderGameGrid() {
       minuteDiv.dataset.tore = String(toreInMinute);
 
       aktualisiereMinutenFarbe(minuteDiv, toreInMinute);
-      aktualisiereMinutenBadge(minuteElement, aktuelleAnzahl);
+
       minuteDiv.addEventListener("click", () => {
         minuteAngeklickt(spieler.name, minute, minuteDiv);
       });
@@ -529,6 +528,8 @@ function renderGameGrid() {
 
     gameGrid.appendChild(column);
   });
+
+  playerHeaderRow.scrollLeft = gameGrid.scrollLeft;
 }
 
 function minuteAngeklickt(spielerName, minute, minuteElement) {
@@ -779,6 +780,7 @@ function renderPlayerHeaderRow(sortierteSpieler) {
 
   playerHeaderRow.scrollLeft = gameGrid.scrollLeft;
 }
+
 function synchronisiereHeaderScroll() {
   let isSyncing = false;
 
