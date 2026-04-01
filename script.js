@@ -51,6 +51,7 @@ const exportOutput = document.getElementById("exportOutput");
 const copyExportBtn = document.getElementById("copyExportBtn");
 const confirmEndGameBtn = document.getElementById("confirmEndGameBtn");
 const closeExportModal = document.getElementById("closeExportModal");
+const playerHeaderRow = document.getElementById("playerHeaderRow");
 
 addPlayerBtn.addEventListener("click", () => {
   if (spielerListe.length >= 45) {
@@ -500,15 +501,11 @@ function renderGameGrid() {
   gameGrid.innerHTML = "";
 
   const sortierteSpieler = sortiereSpielerFuerAnzeige(spielerListe);
-
+  renderPlayerHeaderRow(sortierteSpieler);
   sortierteSpieler.forEach(spieler => {
     const column = document.createElement("div");
     column.className = "playerColumn";
 
-    const header = document.createElement("div");
-    header.className = "playerHeader";
-    header.textContent = spieler.name;
-    column.appendChild(header);
 
     spieler.minuten.forEach(minute => {
       const minuteDiv = document.createElement("div");
@@ -744,6 +741,17 @@ function showToast(text) {
   toast.classList.remove("hidden");
   clearTimeout(toastTimeout);
   toastTimeout = setTimeout(() => toast.classList.add("hidden"), 2200);
+}
+
+function renderPlayerHeaderRow(sortierteSpieler) {
+  playerHeaderRow.innerHTML = "";
+
+  sortierteSpieler.forEach(spieler => {
+    const headerCell = document.createElement("div");
+    headerCell.className = "playerHeaderCell";
+    headerCell.textContent = spieler.name;
+    playerHeaderRow.appendChild(headerCell);
+  });
 }
 
 ladeAppStatus();

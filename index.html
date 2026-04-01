@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
   <meta name="theme-color" content="#08111f">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <div id="splashScreen" class="splashScreen">
@@ -53,7 +55,7 @@
             <label class="settingTitle">Modus</label>
             <div class="radioGrid">
               <label class="modeCard">
-                <input type="radio" name="modus" value="Zufall Block" >
+                <input type="radio" name="modus" value="Zufall Block">
                 <span class="modeCardTitle">Zufall Block</span>
                 <span class="modeCardText">Zufällige Minutenvergabe in N-Spieler großen Blöcken</span>
               </label>
@@ -88,14 +90,7 @@
                   <span id="nachspielzeitValue" class="sliderValue">+5 Min</span>
                 </div>
 
-                <input
-                  type="range"
-                  id="nachspielzeitInput"
-                  min="0"
-                  max="10"
-                  value="5"
-                  class="premiumSlider"
-                >
+                <input type="range" id="nachspielzeitInput" min="0" max="10" value="5" class="premiumSlider">
 
                 <div class="sliderScale">
                   <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>
@@ -137,7 +132,10 @@
         </div>
       </section>
 
-      <div id="gameGrid"></div>
+      <div id="gameBoard">
+        <div id="playerHeaderRow"></div>
+        <div id="gameGrid"></div>
+      </div>
     </div>
   </div>
 
@@ -199,7 +197,7 @@
     </div>
   </div>
 
-  
+
   <div id="exportModal" class="modal hidden">
     <div class="modalContent premiumModal exportModalContent">
       <p class="eyebrow">Spielende</p>
@@ -221,4 +219,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
