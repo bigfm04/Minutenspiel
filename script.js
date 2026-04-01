@@ -519,7 +519,7 @@ function renderGameGrid() {
       minuteDiv.dataset.tore = String(toreInMinute);
 
       aktualisiereMinutenFarbe(minuteDiv, toreInMinute);
-
+      aktualisiereMinutenBadge(minuteElement, aktuelleAnzahl);
       minuteDiv.addEventListener("click", () => {
         minuteAngeklickt(spieler.name, minute, minuteDiv);
       });
@@ -548,6 +548,7 @@ function torSpeichern(spielerName, minute, typ, minuteElement) {
   minuteElement.dataset.tore = String(aktuelleAnzahl);
 
   aktualisiereMinutenFarbe(minuteElement, aktuelleAnzahl);
+  aktualisiereMinutenBadge(minuteElement, aktuelleAnzahl);
   speichereAppStatus();
   showToast("Tor gespeichert.");
 }
@@ -570,6 +571,7 @@ function letztesTorEntfernen(spielerName, minute, minuteElement) {
   minuteElement.dataset.tore = String(aktuelleAnzahl);
 
   aktualisiereMinutenFarbe(minuteElement, aktuelleAnzahl);
+  aktualisiereMinutenBadge(minuteElement, aktuelleAnzahl);
   speichereAppStatus();
   showToast("Tor entfernt.");
 }
@@ -588,6 +590,27 @@ function aktualisiereMinutenFarbe(element, tore) {
   } else {
     element.classList.add("tore-4plus");
   }
+}
+
+function aktualisiereMinutenBadge(element, tore) {
+  const vorhandenesBadge = element.querySelector(".minuteBadge");
+
+  if (tore <= 0) {
+    if (vorhandenesBadge) {
+      vorhandenesBadge.remove();
+    }
+    return;
+  }
+
+  if (vorhandenesBadge) {
+    vorhandenesBadge.textContent = String(tore);
+    return;
+  }
+
+  const badge = document.createElement("div");
+  badge.className = "minuteBadge";
+  badge.textContent = String(tore);
+  element.appendChild(badge);
 }
 
 function berechneStatistik(spielerName) {
