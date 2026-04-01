@@ -125,7 +125,7 @@ document.getElementById("tortypenCheckbox").addEventListener("change", (event) =
 });
 
 startGameBtn.addEventListener("click", () => {
-  if (spielerListe.length <1) {
+  if (spielerListe.length < 1) {
     showToast("Bitte mindestens einen Spieler anlegen.");
     return;
   }
@@ -483,10 +483,25 @@ function generiereMinutenverteilung(spielerListe, modus, nachspielzeit) {
   }
 }
 
+function sortiereSpielerFuerAnzeige(spielerArray) {
+  return [...spielerArray].sort((a, b) => {
+    const ersteMinuteA = a.minuten?.length ? minutenZuSortierwert(a.minuten[0]) : 999;
+    const ersteMinuteB = b.minuten?.length ? minutenZuSortierwert(b.minuten[0]) : 999;
+
+    if (ersteMinuteA !== ersteMinuteB) {
+      return ersteMinuteA - ersteMinuteB;
+    }
+
+    return a.name.localeCompare(b.name, "de");
+  });
+}
+
 function renderGameGrid() {
   gameGrid.innerHTML = "";
 
-  spielerListe.forEach(spieler => {
+  const sortierteSpieler = sortiereSpielerFuerAnzeige(spielerListe);
+
+  sortierteSpieler.forEach(spieler => {
     const column = document.createElement("div");
     column.className = "playerColumn";
 

@@ -892,3 +892,36 @@ button:disabled {
   filter: grayscale(0.4);
   transform: none !important;
 }
+
+/* Sticky Header (Buttons oben) */
+.gameHeaderCard {
+  position: sticky;
+  top: 12px;
+  z-index: 20;
+  margin-bottom: 18px;
+}
+
+/* Spalten vorbereiten */
+#gameGrid {
+  align-items: start;
+}
+
+/* Spieler-Spalten */
+.playerColumn {
+  position: relative;
+  padding-top: 76px;
+}
+
+/* Spielername bleibt sichtbar */
+.playerHeader {
+  position: sticky;
+  top: 112px;
+  z-index: 10;
+  margin: 0 -12px 14px;
+  padding: 14px 12px 12px;
+  background: linear-gradient(180deg, rgba(12, 22, 39, 0.96), rgba(8, 17, 31, 0.92));
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  backdrop-filter: blur(14px);
+}
