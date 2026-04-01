@@ -342,6 +342,13 @@ button:active {
   transform: translateY(1px);
 }
 
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.4);
+  transform: none !important;
+}
+
 .primaryBtn,
 .startBtn {
   color: white;
@@ -427,6 +434,11 @@ button:active {
   flex-wrap: wrap;
 }
 
+.gameHeaderCard {
+  position: static;
+  margin-bottom: 18px;
+}
+
 #gameGrid {
   margin-top: 18px;
   display: grid;
@@ -434,24 +446,38 @@ button:active {
   grid-auto-columns: minmax(160px, 1fr);
   gap: 16px;
   overflow-x: auto;
+  overflow-y: visible;
+  align-items: start;
   padding-bottom: 10px;
 }
 
 .playerColumn {
+  position: relative;
   background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
   border: 1px solid rgba(255,255,255,0.10);
   box-shadow: var(--shadow);
   border-radius: 24px;
-  padding: 16px 12px;
+  padding: 0 12px 16px;
   min-height: 300px;
+  overflow: visible;
 }
 
 .playerHeader {
+  position: sticky;
+  top: 8px;
+  z-index: 15;
   text-align: center;
   font-weight: 800;
-  margin-bottom: 14px;
+  margin: 0 -12px 14px;
+  padding: 16px 12px 12px;
   font-size: 16px;
   letter-spacing: -0.01em;
+  background: linear-gradient(180deg, rgba(12, 22, 39, 0.98), rgba(8, 17, 31, 0.94));
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .minuteCircle {
@@ -580,43 +606,6 @@ button:active {
   z-index: 60;
 }
 
-@media (max-width: 920px) {
-  .settingsGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 720px) {
-  #appShell {
-    padding: 18px 12px 28px;
-  }
-
-  .setupCard,
-  .gameHeaderCard,
-  .premiumModal {
-    padding: 16px;
-  }
-
-  .radioGrid {
-    grid-template-columns: 1fr;
-  }
-
-  #gameGrid {
-    grid-auto-columns: minmax(136px, 1fr);
-  }
-
-  .minuteCircle {
-    width: 58px;
-    height: 58px;
-    font-size: 13px;
-  }
-
-  .statsGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-
 .splashScreen {
   position: fixed;
   inset: 0;
@@ -713,22 +702,6 @@ button:active {
 .splashLoader span:nth-child(3) {
   animation-delay: 0.24s;
 }
-
-@keyframes splashBounce {
-  0%, 80%, 100% { transform: translateY(0); opacity: 0.55; }
-  40% { transform: translateY(-8px); opacity: 1; }
-}
-
-@keyframes splashPulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 20px 60px rgba(0,0,0,0.32); }
-  50% { transform: scale(1.03); box-shadow: 0 26px 74px rgba(0,0,0,0.38); }
-}
-
-@keyframes splashFadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 
 .sliderBlock {
   margin-top: 4px;
@@ -833,7 +806,6 @@ button:active {
   transition: 0.2s;
 }
 
-
 .exportModalContent {
   width: min(100%, 680px);
 }
@@ -886,42 +858,76 @@ button:active {
   outline: none;
 }
 
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  filter: grayscale(0.4);
-  transform: none !important;
+@keyframes splashBounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  40% {
+    transform: translateY(-8px);
+    opacity: 1;
+  }
 }
 
-/* Sticky Header (Buttons oben) */
-.gameHeaderCard {
-  position: sticky;
-  top: 12px;
-  z-index: 20;
-  margin-bottom: 18px;
+@keyframes splashPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.32);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 26px 74px rgba(0,0,0,0.38);
+  }
 }
 
-/* Spalten vorbereiten */
-#gameGrid {
-  align-items: start;
+@keyframes splashFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Spieler-Spalten */
-.playerColumn {
-  position: relative;
-  padding-top: 76px;
+@media (max-width: 920px) {
+  .settingsGrid {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* Spielername bleibt sichtbar */
-.playerHeader {
-  position: sticky;
-  top: 112px;
-  z-index: 10;
-  margin: 0 -12px 14px;
-  padding: 14px 12px 12px;
-  background: linear-gradient(180deg, rgba(12, 22, 39, 0.96), rgba(8, 17, 31, 0.92));
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  border-top-left-radius: 24px;
-  border-top-right-radius: 24px;
-  backdrop-filter: blur(14px);
+@media (max-width: 720px) {
+  #appShell {
+    padding: 18px 12px 28px;
+  }
+
+  .setupCard,
+  .gameHeaderCard,
+  .premiumModal {
+    padding: 16px;
+  }
+
+  .radioGrid {
+    grid-template-columns: 1fr;
+  }
+
+  #gameGrid {
+    grid-auto-columns: minmax(136px, 1fr);
+  }
+
+  .playerHeader {
+    top: 8px;
+    padding: 14px 10px 10px;
+  }
+
+  .minuteCircle {
+    width: 58px;
+    height: 58px;
+    font-size: 13px;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
 }
