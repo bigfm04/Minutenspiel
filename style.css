@@ -327,8 +327,8 @@ select:focus {
   transition: transform 0.2s ease;
 }
 
-.toggleRow input:checked+.toggleVisual {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
+.toggleRow input:checked + .toggleVisual {
+  background: linear-gradient(135deg, #d4af37, #c62828);
 }
 
 .toggleRow input:checked+.toggleVisual::after {

@@ -32,10 +32,10 @@
   <div id="appShell">
     <div id="startScreen" class="screen">
       <section class="heroCard">
-        <div class="heroBadge">Bundeskonsumskomission presents</div>
+        <div class="heroBadge">Bundeskonsumskomission</div>
         <h1 class="appTitle">Minutenspiel</h1>
         <p class="heroSubtitle">
-          Bei jedem Tor wird getrunken. Empfohlen werden max. 6 Spieler, danach Teambildung
+          Optimal zu jeder Konferenz. Bei jedem Tor wird von dem Spieler/Team mit der Minute getrunken. Empfohlen werden max. 6 Spieler, bei mehr wird eine Teambildung angeraten.
         </p>
       </section>
 
@@ -52,30 +52,30 @@
 
         <div class="settingsGrid">
           <div class="settingPanel">
-            <label class="settingTitle">Modus</label>
+            <label class="settingTitle">Modus wählen</label>
             <div class="radioGrid">
               <label class="modeCard">
                 <input type="radio" name="modus" value="Zufall Block">
                 <span class="modeCardTitle">Zufall Block</span>
-                <span class="modeCardText">Zufällige Minutenvergabe in N-Spieler großen Blöcken</span>
+                <span class="modeCardText">Die Minuten werden in Blöcke in Größe der Anzahl Spieler aufgeteilt. Jeder Spieler erhält pro Block eine zufällige Minute</span>
               </label>
 
               <label class="modeCard">
                 <input type="radio" name="modus" value="Zufall45">
                 <span class="modeCardTitle">Zufall45</span>
-                <span class="modeCardText">Zufällige Minutenvergabe pro Halbzeit</span>
+                <span class="modeCardText">Jede Halbzeit wird zufällig auf die Anzahl Spieler aufgeteilt.</span>
               </label>
 
               <label class="modeCard">
                 <input type="radio" name="modus" value="Zufall90">
                 <span class="modeCardTitle">Zufall90</span>
-                <span class="modeCardText">Zufällige Minutenvergabe gesamte Spielzeit</span>
+                <span class="modeCardText">Die gesamten 90 Minuten werden zufällig auf die Anzahl Spieler aufgeteilt</span>
               </label>
 
               <label class="modeCard">
                 <input type="radio" name="modus" value="Linear" checked>
                 <span class="modeCardTitle">Linear</span>
-                <span class="modeCardText">Jeder Spieler erhält Minuten in gleichem Abstand</span>
+                <span class="modeCardText">Eine Initial-Reihenfolge wird ausgelost. Jeder Spieler erhält Minuten in gleichem Abstand.</span>
               </label>
             </div>
           </div>
@@ -122,7 +122,7 @@
       <section class="glassCard gameHeaderCard">
         <div class="sectionHeader sectionHeaderWrap">
           <div>
-            <p class="eyebrow">Live‑Ansicht</p>
+            <p class="eyebrow">Übersicht</p>
             <h2>Minutentabelle</h2>
           </div>
           <div class="gameHeaderActions">
@@ -161,7 +161,7 @@
 
       <div class="modalButtons vertical">
         <button id="addGoalToMinuteBtn" class="primaryBtn">Tor hinzufügen</button>
-        <button id="removeGoalFromMinuteBtn" class="dangerBtn">Letztes Tor entfernen</button>
+        <button id="removeGoalFromMinuteBtn" class="dangerBtn">Tor entfernen</button>
         <button id="closeMinuteActionModal" class="ghostBtn">Abbrechen</button>
       </div>
     </div>
@@ -202,12 +202,12 @@
     <div class="modalContent premiumModal exportModalContent">
       <p class="eyebrow">Spielende</p>
       <h3>Export</h3>
-      <p class="modalInfo">Hier ist die Zusammenfassung des Spiels. Ideal zum Screenshotten.</p>
+      <p class="modalInfo">Kompakete Spielzusammenfassung</p>
 
       <div id="exportOutput" class="exportList"></div>
 
       <div class="modalButtons vertical">
-        <button id="copyExportBtn" class="primaryBtn">Exporttext kopieren</button>
+        <button id="copyExportBtn" class="primaryBtn">In die Zwischenablage kopieren</button>
         <button id="confirmEndGameBtn" class="dangerBtn">Spiel beenden</button>
         <button id="closeExportModal" class="ghostBtn">Abbrechen</button>
       </div>
