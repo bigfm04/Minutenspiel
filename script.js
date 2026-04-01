@@ -321,14 +321,14 @@ function updateNachspielzeitSlider() {
 
   const percent = (value / 10) * 100;
   nachspielzeitInput.style.background = `
-    linear-gradient(
-      90deg,
-      #22c55e 0%,
-      #2563eb ${percent}%,
-      rgba(255,255,255,0.14) ${percent}%,
-      rgba(255,255,255,0.14) 100%
-    )
-  `;
+  linear-gradient(
+    90deg,
+    #f6e6b4 0%,
+    #d4af37 ${percent}%,
+    rgba(255,255,255,0.14) ${percent}%,
+    rgba(255,255,255,0.14) 100%
+  )
+`;
 
   document.querySelectorAll(".sliderScale span").forEach((el, index) => {
     if (index === value) {
