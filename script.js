@@ -551,7 +551,7 @@ function torSpeichern(spielerName, minute, typ, minuteElement) {
   aktualisiereMinutenFarbe(minuteElement, aktuelleAnzahl);
   aktualisiereMinutenBadge(minuteElement, aktuelleAnzahl);
   speichereAppStatus();
-  showToast("Tor gespeichert.");
+  showToast("Guten Durst.");
 }
 
 function letztesTorEntfernen(spielerName, minute, minuteElement) {
