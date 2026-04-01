@@ -284,7 +284,7 @@ function renderSpielerListe() {
 
     const meta = document.createElement("div");
     meta.className = "playerMeta";
-    meta.textContent = "Bereit für die Auslosung";
+    meta.textContent = "Hat gewaltig Durst";
 
     textWrap.appendChild(nameSpan);
     textWrap.appendChild(meta);
@@ -502,6 +502,7 @@ function renderGameGrid() {
 
   const sortierteSpieler = sortiereSpielerFuerAnzeige(spielerListe);
   renderPlayerHeaderRow(sortierteSpieler);
+  gameGrid.innerHTML = "";
   sortierteSpieler.forEach(spieler => {
     const column = document.createElement("div");
     column.className = "playerColumn";
@@ -752,6 +753,20 @@ function renderPlayerHeaderRow(sortierteSpieler) {
     headerCell.textContent = spieler.name;
     playerHeaderRow.appendChild(headerCell);
   });
+
+  playerHeaderRow.scrollLeft = gameGrid.scrollLeft;
+}
+function synchronisiereHeaderScroll() {
+  let isSyncing = false;
+
+  gameGrid.addEventListener("scroll", () => {
+    if (isSyncing) return;
+    isSyncing = true;
+    playerHeaderRow.scrollLeft = gameGrid.scrollLeft;
+    requestAnimationFrame(() => {
+      isSyncing = false;
+    });
+  });
 }
 
 ladeAppStatus();
@@ -768,7 +783,7 @@ if ("serviceWorker" in navigator) {
       .catch(error => console.error("Service Worker Fehler:", error));
   });
 }
-
+synchronisiereHeaderScroll();
 
 window.addEventListener("load", () => {
   setTimeout(hideSplashScreen, 1300);

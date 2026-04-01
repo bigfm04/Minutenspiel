@@ -443,7 +443,7 @@ button:disabled {
   gap: 10px;
   flex-wrap: wrap;
 }
-
+/*
 .gameHeaderCard {
   position: static;
   margin-bottom: 18px;
@@ -502,6 +502,7 @@ button:disabled {
 .playerHeader {
   display: none !important;
 }
+*/
 
 .minuteCircle {
   width: 64px;
@@ -967,5 +968,84 @@ button:disabled {
 
   .statsGrid {
     grid-template-columns: 1fr;
+  }
+}
+
+.gameHeaderCard {
+  position: static;
+  margin-bottom: 18px;
+}
+
+#gameBoard {
+  margin-top: 18px;
+  position: relative;
+}
+
+#playerHeaderRow {
+  position: sticky;
+  top: 8px;
+  z-index: 40;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(160px, 1fr);
+  gap: 16px;
+  overflow: hidden;
+  padding-bottom: 10px;
+  margin-bottom: 6px;
+  pointer-events: none;
+}
+
+.playerHeaderCell {
+  text-align: center;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  padding: 14px 12px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(12, 22, 39, 0.98), rgba(8, 17, 31, 0.94));
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.24);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+#gameGrid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(160px, 1fr);
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  align-items: start;
+  padding-bottom: 10px;
+}
+
+.playerColumn {
+  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: var(--shadow);
+  border-radius: 24px;
+  padding: 16px 12px;
+  min-height: 300px;
+}
+
+.playerHeader {
+  display: none !important;
+}
+
+@media (max-width: 720px) {
+  #playerHeaderRow,
+  #gameGrid {
+    grid-auto-columns: minmax(136px, 1fr);
+  }
+
+  #playerHeaderRow {
+    top: 8px;
+  }
+
+  .playerHeaderCell {
+    font-size: 15px;
+    padding: 12px 10px;
   }
 }
